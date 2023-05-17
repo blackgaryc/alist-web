@@ -73,6 +73,9 @@ export const useSelectedLink = () => {
     rawLinksText: (encodeAll?: boolean) => {
       return rawLinks(encodeAll).join("\n")
     },
+    previewPagesLinks: () => {
+      return selectedObjs().map((obj) => previewPage(obj, true))
+    },
   }
 }
 
@@ -89,6 +92,41 @@ export const useCopyLink = () => {
     },
     copyCurrentRawLink: (encodeAll?: boolean) => {
       copy(currentObjLink(encodeAll))
+    },
+  }
+}
+
+export const useExcelExport = () => {
+  const { excel } = useUtil()
+  const { previewPagesLinks, rawLinksText, rawLinks } = useSelectedLink()
+  const { currentObjLink } = useLink()
+  return {
+    exportSelectedPreviewPage: () => {
+      let obj = {
+        sheet: "sheet1",
+        columns: [
+          { label: "url", value: "url" }, // Top level data
+        ],
+        content: previewPagesLinks().map((v) => {
+          return { url: v }
+        }),
+      }
+      excel([obj])
+    },
+    exportSelectedRawLink: (encodeAll?: boolean) => {
+      let obj = {
+        sheet: "sheet1",
+        columns: [
+          { label: "url", value: "url" }, // Top level data
+        ],
+        content: rawLinks(encodeAll).map((v) => {
+          return { url: v }
+        }),
+      }
+      excel([obj])
+    },
+    exportCurrentRawLink: (encodeAll?: boolean) => {
+      console.log("todo")
     },
   }
 }

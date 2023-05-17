@@ -2,6 +2,7 @@ import { Box, HStack, useColorModeValue } from "@hope-ui/solid"
 import { createMemo, For, Show } from "solid-js"
 import { checkboxOpen, haveSelected, objStore, selectAll, State } from "~/store"
 import { CopyLink } from "./CopyLink"
+import { ExcelExport } from "./ExcelExport"
 import { CenterIcon } from "./Icon"
 import { bus } from "~/utils"
 import { Download } from "./Download"
@@ -54,6 +55,7 @@ export const Center = () => {
               }}
             </For>
             <CopyLink />
+            <ExcelExport />
             <Download />
             <CenterIcon
               name="cancel_select"
